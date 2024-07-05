@@ -1,14 +1,14 @@
-version: '3.1'
+version: '3.5'
 services:
   backend:
-    container_name: "Backend"
+    container_name: "FBackend"
     image: sekret3d/starlight_backend:dev
     volumes:
       - backend:/data/backend
     ports:
       - '8082:8082'
     networks:
-      - postgres
+      - starlight-network
     secrets:
       - backend_secrets
     env_file:
@@ -19,14 +19,14 @@ services:
     restart: unless-stopped
 
   frontend:
-    container_name: "Frontend"
+    container_name: "FFrontend"
     image: sekret3d/starlight_frontend:main
     volumes:
       - frontend:/data/frontend
     ports:
       - '3000:3000'
     networks:
-      - postgres
+      - starlight-network
     depends_on:
       - postgres
       - backend
@@ -34,7 +34,7 @@ services:
     restart: unless-stopped
 
   postgres:
-    container_name: "PSQL_PROD"
+    container_name: "FPSQL_PROD"
     image: postgres
     environment:
       POSTGRES_DB: postgres
@@ -46,11 +46,11 @@ services:
     ports:
       - '5432:5432'
     networks:
-      - postgres
+      - starlight-network
     restart: unless-stopped
 
   pgadmin:
-    container_name: pgadmin_prod
+    container_name: "Fpgadmin_prod"
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: sekret7d@gmail.com
@@ -61,11 +61,12 @@ services:
     ports:
       - "5050:80"
     networks:
-      - postgres
+      - starlight-network
     restart: unless-stopped
 
 networks:
-  postgres:
+  starlight-network:
+    name: starlight-network
     driver: bridge
 
 volumes:
