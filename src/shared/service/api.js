@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 // const API_URL = 'http://18.194.159.42:8082/api';
-const API_URL = 'http://postgres:8082/api';
+// const API_URL = 'http://starlight-network:8082/api';
+const API_URL = 'http://localhost:8082/api'
+// const API_URL = 'http://backend:8082/api';
 
 export const publicAxiosInstance = axios.create({
   baseURL: API_URL,
